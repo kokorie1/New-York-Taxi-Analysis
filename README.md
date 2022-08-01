@@ -16,19 +16,23 @@ Negative total_amount values: removed them since they are likely faulty data poi
 Total_amount values were too high reaching upto 600000. As these are unlikely values for a taxi fare, I decided to come up with an upper limit. The average taxi_fare was $16 and there were only 1166 data points > $200. Compared to the 7667792 data points, this is not a great loss of information. Hence, I removed data points with a total_amount value > 200.
 
 ## Original features of the model
+
 Here is the list of features that can be used for model development that came with the original data: [‘PULocationID’, ‘transaction_date’,’ transaction_month’,’ transaction_day’, ‘transaction_hour’, ‘trip_distance’,’ total_amount’, ‘count_of_transactions’]
 You can refer to https://www1.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf for the meaning of each feature.
 
 ### Feature engineering
+
 Three sets of new features were added to the model. First set is time-based feature. These include, weekend and holiday boolean.
 Second set is location-based information. Location IDs per region is given but there is a higher level oulandishness for a region called Boroughs. This information came from the source of the main data.
 The last set is weather related data. I’ve downloaded this data from same website. 
 Here is a list of all features used in the final model: ['PULocationID', 'transaction_month', 'transaction_day', 'transaction_hour', 'transaction_week_day', 'weekend', 'is_holiday', 'Borough’, 'temperature', 'humidity', 'wind speed', 'cloud cover', 'amount of precipitation’, ‘total_amount’]
 
 ## Used algorithms and the results
+
 I used Decision Trees, Random Forest and Gradient Boosting. However, the benchmark model is Decision Tree. In the benchmark model, I only included the original features of the model as stated above. And on the normal models I used all original features plus the newly created ones.
 
 Performance results before tuning:
+
 |  **Algorithm** 	    | **MAE** | **RMSE**| **R2** 	|
 |        ---	        |  ---	  |  ---	  |  ---	  |
 | Benchmark model 	  | 9.776   | 14.737 	| 0.224 	|
@@ -41,6 +45,7 @@ The Random Forest model is selected to be tuned. Here are the best parameter val
 Because of the high n_estimator value, I decided to go with the parameter values that give the 2nd best performance, which is not very different than the best performance: n_estimators: 200 min_samples_split: 10 min_samples_leaf: 1 max_features: sqrt max_depth: 200 bootstrap: False.
 
 The performance compares to previous models is:
+
 | **    Algorithm**   	| ** MAE** 	| ** RMSE** 	| ** R2** 	|
 |---------------------	|----------	|-----------	|---------	|
 | Benchmark Model     	| 9.776    	| 14.737    	| 0.224   	|
@@ -55,6 +60,7 @@ Here is the True vs. Predicted value plot for the tuned random forest model. X-a
 
 
 Next steps:
+
 As you can see from the plot above, the performance can be improved. Three ways that I did not try in this notebook:
 •	limiting the regions included in this analysis. Removing the regions that do not normally get a lot of taxi traffic can be omitted. This might be a good action to take depending on the problem at hand. (If the goal is to service all of NYC no matter what, we should keep those data points)
 •	hand selecting borough that should be included in the model. Again this should be decided based on the problem at hand and how this model is going to be used. But if the goal is solely to increase model performance, only including boroughs with the most transactions can increase the performance since likely most mistakes come from boroughs with fewer data points. Though this assumption should be checked before taking this action.
