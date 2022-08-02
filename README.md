@@ -33,26 +33,28 @@ I used Decision Trees, Random Forest and Gradient Boosting. However, the benchma
 
 Performance results before tuning:
 
-|  **Algorithm** 	    | **MAE** | **RMSE**| **R2** 	|
-|        ---	        |  ---	  |  ---	  |  ---	  |
-| Benchmark model 	  | 9.776   | 14.737 	| 0.224 	|
-| Decision tree 	    | 9.887 	| 15.008 	| 0.206 	|
-| Random forest 	    | 7.585 	| 13.563 	| 0.351 	|
-| Gradient boosting 	| 9.511 	| 14.176 	| 0.291 	|
+|    **Algorithm** 	    | **MAE** 	| **RMSE** 	| **R2** 	|
+|        ---	        |  ---	    |  ---	    |  ---	    |
+| Benchmark model 	    | 9.778 	| 14.739 	| 0.224 	|
+| Decision tree 	    | 9.875 	| 14.960 	| 0.211 	|
+| Random forest 	    | 7.593 	| 13.569 	| 0.350 	|
+| Gradient boosting 	| 9.513 	| 14.180 	| 0.291 	|
 
 The Random Forest model is selected to be tuned. Here are the best parameter values: n_estimators: 600, min_samples_split: 10, min_samples_leaf: 2, max_features: sqrt max_depth: 500 bootstrap: False.
 
 Because of the high n_estimator value, I decided to go with the parameter values that give the 2nd best performance, which is not very different than the best performance: n_estimators: 200 min_samples_split: 10 min_samples_leaf: 1 max_features: sqrt max_depth: 200 bootstrap: False.
 
 The performance compares to previous models is:
+### Performance results compared to the previous model:
 
-| **    Algorithm**   	| ** MAE** 	| ** RMSE** 	| ** R2** 	|
-|---------------------	|----------	|-----------	|---------	|
-| Benchmark Model     	| 9.776    	| 14.737    	| 0.224   	|
-| Decision Tree       	| 9.887    	| 15.008    	| 0.206   	|
-| Random Forest       	| 7.585    	| 13.563    	| 0.351   	|
-| Gradient Boosting   	| 9.511    	| 14.176    	| 0.291   	|
-| Tuned Random Forest 	| 7.300    	| 12.762    	| 0.425   	|
+|   ** Algorithm **    |    ** MAE **     |  ** RMSE ** |  ** R2 ** |
+|--------------------- |   ----------     | ----------- | --------- |
+| Benchmark Model      | 9.778            |   14.739    |  0.224    |
+| Decision Tree        | 9.875            |   14.960    |  0.211    |
+| Random Forest        | 7.593            |   13.569    |  0.350    |
+| Gradient Boosting    | 9.513            |   14.180    |  0.291    |
+| Tuned Random Forest  | 7.343            |   12.859    |  0.418    |
+
 
 Here is the True vs. Predicted value plot for the tuned random forest model. X-axis is the true values and y-axis the predicted values.
 
